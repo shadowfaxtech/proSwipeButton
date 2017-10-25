@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ProSwipeButton">
+        <attr name="btn_text" format="string" />
+        <attr name="text_color" format="color" />
+        <attr name="bg_color" format="color" />
+        <attr name="arrow_color" format="color" />
+        <attr name="btn_radius" format="float" />
+        <attr name="text_size" format="dimension" />
+    </declare-styleable>
+</resources>
