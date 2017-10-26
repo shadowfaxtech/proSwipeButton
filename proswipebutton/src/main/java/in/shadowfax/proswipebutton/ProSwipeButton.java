@@ -48,7 +48,7 @@ public class ProSwipeButton extends RelativeLayout {
     private ImageView arrow2;
     private LinearLayout arrowHintContainer;
     private ProgressBar progressBar;
-    private static final float DEFAULT_TEXT_SIZE = 14;
+    private static final float DEFAULT_TEXT_SIZE = dpToPx(14);
     private static final int BTN_INIT_RADIUS = dpToPx(2);
     private static final int BTN_MORPHED_RADIUS = dpToPx(100);
     private static final int MORPH_ANIM_DURATION = 500;

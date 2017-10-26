@@ -1,4 +1,4 @@
-package in.shadowfax.proswipebutton;
+package in.shadowfax.proswipebutton_app;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

@@ -1,4 +1,4 @@
-package in.shadowfax.proswipebutton;
+package in.shadowfax.proswipebutton_app;
 
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package in.shadowfax.proswipebutton;
+package in.shadowfax.proswipebutton_app;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
