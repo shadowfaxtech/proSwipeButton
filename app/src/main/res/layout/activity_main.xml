@@ -1,12 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="in.shadowfax.proswipebutton_app.MainActivity">
 
     <in.shadowfax.proswipebutton.ProSwipeButton
+        android:id="@+id/proswipebutton_main"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        app:btn_text="Place Order" />
 
-</RelativeLayout>
+    <in.shadowfax.proswipebutton.ProSwipeButton
+        android:id="@+id/proswipebutton_main_error"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        app:bg_color="@android:color/holo_blue_dark"
+        app:btn_text="Place Order" />
+
+</LinearLayout>

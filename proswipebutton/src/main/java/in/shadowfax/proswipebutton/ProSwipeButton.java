@@ -53,6 +53,8 @@ public class ProSwipeButton extends RelativeLayout {
     private static final int BTN_MORPHED_RADIUS = dpToPx(100);
     private static final int MORPH_ANIM_DURATION = 500;
 
+    //// TODO: 26/10/17 Add touch blocking
+
     /*
         User configurable settings
      */
