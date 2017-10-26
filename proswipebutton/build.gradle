@@ -1,12 +1,12 @@
 apply plugin: 'com.android.library'
 
 ext {
-    bintrayRepo = 'ProSwipeButton'
-    bintrayName = 'ProSwipeButton'
+    bintrayRepo = 'proswipebutton'
+    bintrayName = 'proswipebutton'
 
     publishedGroupId = 'in.shadowfax'
-    libraryName = 'ProSwipeButton'
-    artifact = 'ProSwipeButton'
+    libraryName = 'proswipebutton'
+    artifact = 'proswipebutton'
 
     libraryDescription = 'A swipe button with progress indicator for Android'
 
