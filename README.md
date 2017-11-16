@@ -66,6 +66,7 @@ You can customize the button via XML or programatically.
         app:text_color="@android:color/white"
         app:text_size="12sp" />
 ```
+Feel free to raise feature requests via the issue tracker for more customizations or just send in a PR :)
 
 # Sample
 Clone the repository and check out the `app` module.
