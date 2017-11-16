@@ -1,7 +1,7 @@
 # ProSwipeButton
 A swipe button for Android with a circular progress bar for async operations
 
-![](https://media.giphy.com/media/3ohjUYjiYN5J04NjtS/giphy.gif)
+![](https://raw.githubusercontent.com/shadowfaxtech/proSwipeButton/master/proSwipeButton_demo.gif)
 
 # Gradle
 ```
