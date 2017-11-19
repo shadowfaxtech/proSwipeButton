@@ -34,7 +34,7 @@ proSwipeBtn.setOnSwipeListener(new ProSwipeButton.OnSwipeListener() {
                     @Override
                     public void run() {
                         // task success! show TICK icon in ProSwipeButton
-                        proSwipeBtn.showResultIcon(true); // false is task failed
+                        proSwipeBtn.showResultIcon(true); // false if task failed
                     }
                 }, 2000);
             }
