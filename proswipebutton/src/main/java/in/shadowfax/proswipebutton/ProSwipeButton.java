@@ -29,6 +29,11 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import static in.shadowfax.proswipebutton.Constants.BTN_INIT_RADIUS;
+import static in.shadowfax.proswipebutton.Constants.BTN_MORPHED_RADIUS;
+import static in.shadowfax.proswipebutton.Constants.DEFAULT_SWIPE_DISTANCE;
+import static in.shadowfax.proswipebutton.Constants.DEFAULT_TEXT_SIZE;
+import static in.shadowfax.proswipebutton.Constants.MORPH_ANIM_DURATION;
 import static in.shadowfax.proswipebutton.UiUtils.animateFadeHide;
 import static in.shadowfax.proswipebutton.UiUtils.animateFadeShow;
 import static in.shadowfax.proswipebutton.UiUtils.dpToPx;
@@ -48,10 +53,6 @@ public class ProSwipeButton extends RelativeLayout {
     private ImageView arrow2;
     private LinearLayout arrowHintContainer;
     private ProgressBar progressBar;
-    private static final float DEFAULT_TEXT_SIZE = dpToPx(14);
-    private static final int BTN_INIT_RADIUS = dpToPx(2);
-    private static final int BTN_MORPHED_RADIUS = dpToPx(100);
-    private static final int MORPH_ANIM_DURATION = 500;
 
     //// TODO: 26/10/17 Add touch blocking
 
@@ -70,6 +71,7 @@ public class ProSwipeButton extends RelativeLayout {
     private float textSize = DEFAULT_TEXT_SIZE;
     @Nullable
     private OnSwipeListener swipeListener = null;
+    private float swipeDistance = DEFAULT_SWIPE_DISTANCE;
 
     public ProSwipeButton(Context context) {
         super(context);
@@ -168,7 +170,7 @@ public class ProSwipeButton extends RelativeLayout {
                         return true;
                     case MotionEvent.ACTION_UP:
                         //Release logic here
-                        if (arrowHintContainer.getX() + arrowHintContainer.getWidth() > getWidth() * 0.85) {
+                        if (arrowHintContainer.getX() + arrowHintContainer.getWidth() > getWidth() * swipeDistance) {
                             // swipe completed, fly the hint away!
                             animateFadeHide(context, arrowHintContainer);
                             if (swipeListener != null)
@@ -427,6 +429,26 @@ public class ProSwipeButton extends RelativeLayout {
     @Dimension
     public float getTextSize() {
         return this.textSize;
+    }
+
+    /**
+     * How much of the button must the user swipe to trigger the OnSwipeListener successfully
+     *
+     * @param swipeDistance float from 0.0 to 1.0 where 1.0 means user must swipe the button fully from end to end. Default is 0.85.
+     */
+    public void setSwipeDistance(@Dimension float swipeDistance) {
+        if (swipeDistance > 1.0f) {
+            swipeDistance = 1.0f;
+        }
+        if (swipeDistance < 0.0f) {
+            swipeDistance = 0.0f;
+        }
+        this.swipeDistance = swipeDistance;
+    }
+
+    @Dimension
+    public float getSwipeDistance() {
+        return this.swipeDistance;
     }
 
     public void setOnSwipeListener(@Nullable OnSwipeListener customSwipeListener) {

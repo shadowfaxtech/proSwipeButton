@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
 
         final ProSwipeButton proSwipeBtn = findViewById(R.id.proswipebutton_main);
         final ProSwipeButton proSwipeBtnError = findViewById(R.id.proswipebutton_main_error);
+        proSwipeBtn.setSwipeDistance(0.5f);
 
         proSwipeBtn.setOnSwipeListener(new ProSwipeButton.OnSwipeListener() {
             @Override
