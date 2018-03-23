@@ -7,7 +7,7 @@ A swipe button for Android with a circular progress bar for async operations
 ```
 dependencies {
     ...
-    compile 'in.shadowfax:proswipebutton:1.0.1'
+    compile 'in.shadowfax:proswipebutton:1.0.2'
 }
 ```
 
@@ -66,6 +66,12 @@ You can customize the button via XML or programatically.
         app:text_color="@android:color/white"
         app:text_size="12sp" />
 ```
+New: set distance the user must swipe to activate the button.
+
+```JAVA
+proswipebutton.setSwipeDistance(0.6f);
+```
+
 Feel free to raise feature requests via the issue tracker for more customizations or just send in a PR :)
 
 # Sample
