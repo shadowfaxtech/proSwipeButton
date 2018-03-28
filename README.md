@@ -7,7 +7,7 @@ A swipe button for Android with a circular progress bar for async operations
 ```
 dependencies {
     ...
-    compile 'in.shadowfax:proswipebutton:1.0.2'
+    compile 'in.shadowfax:proswipebutton:1.1'
 }
 ```
 
