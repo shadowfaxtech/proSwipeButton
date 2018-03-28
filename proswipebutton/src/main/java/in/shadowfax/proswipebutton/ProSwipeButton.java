@@ -172,10 +172,7 @@ public class ProSwipeButton extends RelativeLayout {
                         //Release logic here
                         if (arrowHintContainer.getX() + arrowHintContainer.getWidth() > getWidth() * swipeDistance) {
                             // swipe completed, fly the hint away!
-                            animateFadeHide(context, arrowHintContainer);
-                            if (swipeListener != null)
-                                swipeListener.onSwipeConfirm();
-                            morphToCircle();
+                            performSuccessfulSwipe();
                         } else if (arrowHintContainer.getX() <= 0) {
                             // upon click without swipe
                             startFwdAnim();
@@ -189,6 +186,12 @@ public class ProSwipeButton extends RelativeLayout {
                 return false;
             }
         });
+    }
+
+    private void performSuccessfulSwipe() {
+        if (swipeListener != null)
+            swipeListener.onSwipeConfirm();
+        morphToCircle();
     }
 
     @Override
@@ -245,7 +248,17 @@ public class ProSwipeButton extends RelativeLayout {
         arrowHintContainer.startAnimation(anim);
     }
 
-    private void morphToCircle() {
+    /**
+     * Just like performOnClick() in a standard button,
+     * this will call the attached OnSwipeListener
+     * and morph the btn to a circle
+     */
+    public void performOnSwipe() {
+        performSuccessfulSwipe();
+    }
+
+    public void morphToCircle() {
+        animateFadeHide(context, arrowHintContainer);
         setOnTouchListener(null);
         ObjectAnimator cornerAnimation =
                 ObjectAnimator.ofFloat(gradientDrawable, "cornerRadius", BTN_INIT_RADIUS, BTN_MORPHED_RADIUS);
