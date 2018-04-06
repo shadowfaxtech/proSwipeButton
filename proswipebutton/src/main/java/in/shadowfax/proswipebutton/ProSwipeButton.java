@@ -6,7 +6,6 @@ import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Handler;
@@ -14,6 +13,7 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.Dimension;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -346,17 +346,17 @@ public class ProSwipeButton extends RelativeLayout {
     public void showResultIcon(boolean isSuccess) {
         animateFadeHide(context, progressBar);
 
-        final ImageView failureIcon = new ImageView(context);
+        final AppCompatImageView failureIcon = new AppCompatImageView(context);
         RelativeLayout.LayoutParams icLayoutParams =
                 new RelativeLayout.LayoutParams(dpToPx(50), dpToPx(50));
         failureIcon.setLayoutParams(icLayoutParams);
         failureIcon.setVisibility(GONE);
-        Drawable icon;
+        int icon;
         if (isSuccess)
-            icon = ContextCompat.getDrawable(context, R.drawable.ic_check_circle_36dp);
+            icon = R.drawable.ic_check_circle_36dp;
         else
-            icon = ContextCompat.getDrawable(context, R.drawable.ic_cancel_full_24dp);
-        failureIcon.setImageDrawable(icon);
+            icon = R.drawable.ic_cancel_full_24dp;
+        failureIcon.setImageResource(icon);
         contentContainer.addView(failureIcon);
         animateFadeShow(context, failureIcon);
 
