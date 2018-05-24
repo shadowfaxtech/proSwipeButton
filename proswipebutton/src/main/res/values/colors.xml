@@ -2,4 +2,5 @@
 <resources>
     <color name="proswipebtn_translucent_white">#33ffffff</color>
     <color name="proswipebtn_red">#F15824</color>
+    <color name="proswipebtn_disabled_grey">#939393</color>
 </resources>
