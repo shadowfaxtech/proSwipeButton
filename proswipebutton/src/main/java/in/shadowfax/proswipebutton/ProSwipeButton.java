@@ -53,6 +53,7 @@ public class ProSwipeButton extends RelativeLayout {
     private ImageView arrow2;
     private LinearLayout arrowHintContainer;
     private ProgressBar progressBar;
+    private boolean isReverseDirection;
 
     //// TODO: 26/10/17 Add touch blocking
 
@@ -143,6 +144,9 @@ public class ProSwipeButton extends RelativeLayout {
         setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
+
+                final float arrowHeadX = isReverseDirection ? arrowHintContainer.getX() : arrowHintContainer.getX() + arrowHintContainer.getWidth();
+
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         return true;
@@ -150,12 +154,12 @@ public class ProSwipeButton extends RelativeLayout {
                         // Movement logic here
                         if (event.getX() > arrowHintContainer.getWidth() / 2 &&
                                 event.getX() + arrowHintContainer.getWidth() / 2 < getWidth() &&
-                                (event.getX() < arrowHintContainer.getX() + arrowHintContainer.getWidth() || arrowHintContainer.getX() != 0)) {
+                                (event.getX() < arrowHeadX || arrowHintContainer.getX() != 0)) {
                             // snaps the hint to user touch, only if the touch is within hint width or if it has already been displaced
                             arrowHintContainer.setX(event.getX() - arrowHintContainer.getWidth() / 2);
                         }
 
-                        if (arrowHintContainer.getX() + arrowHintContainer.getWidth() > getWidth() &&
+                        if (arrowHeadX > getWidth() &&
                                 arrowHintContainer.getX() + arrowHintContainer.getWidth() / 2 < getWidth()) {
                             // allows the hint to go up to a max of btn container width
                             arrowHintContainer.setX(getWidth() - arrowHintContainer.getWidth());
@@ -170,15 +174,28 @@ public class ProSwipeButton extends RelativeLayout {
                         return true;
                     case MotionEvent.ACTION_UP:
                         //Release logic here
-                        if (arrowHintContainer.getX() + arrowHintContainer.getWidth() > getWidth() * swipeDistance) {
-                            // swipe completed, fly the hint away!
-                            performSuccessfulSwipe();
-                        } else if (arrowHintContainer.getX() <= 0) {
-                            // upon click without swipe
-                            startFwdAnim();
+                        if (!isReverseDirection) {
+                            if (arrowHeadX > getWidth() * swipeDistance) {
+                                // swipe completed, fly the hint away!
+                                performSuccessfulSwipe();
+                            } else if (arrowHintContainer.getX() <= 0) {
+                                // upon click without swipe
+                                startFwdAnim();
+                            } else {
+                                // swipe not completed, pull back the hint
+                                animateHintBack();
+                            }
                         } else {
-                            // swipe not completed, pull back the hint
-                            animateHintBack();
+                            if (arrowHeadX < getWidth() * swipeDistance) {
+                                // swipe completed, fly the hint away!
+                                performSuccessfulSwipe();
+                            } else if (arrowHintContainer.getX() + arrowHintContainer.getWidth() >= getWidth()) {
+                                // upon click without swipe
+                                startFwdAnim();
+                            } else {
+                                // swipe not completed, pull back the hint
+                                animateHintBack();
+                            }
                         }
                         return true;
                 }
@@ -218,7 +235,8 @@ public class ProSwipeButton extends RelativeLayout {
 
     private void startFwdAnim() {
         if (isEnabled()) {
-            TranslateAnimation animation = new TranslateAnimation(0, getMeasuredWidth(), 0, 0);
+            float toYDelta = isReverseDirection ? -getMeasuredWidth() : getMeasuredWidth();
+            TranslateAnimation animation = new TranslateAnimation(0, toYDelta, 0, 0);
             animation.setInterpolator(new AccelerateDecelerateInterpolator());
             animation.setDuration(1000);
             animation.setAnimationListener(new Animation.AnimationListener() {
@@ -242,10 +260,11 @@ public class ProSwipeButton extends RelativeLayout {
     }
 
     /**
-     * animate entry of hint from the left-most edge
+     * animate entry of hint from the left/right edge
      */
     private void startHintInitAnim() {
-        TranslateAnimation anim = new TranslateAnimation(-arrowHintContainer.getWidth(), 0, 0, 0);
+        float fromXDelta = isReverseDirection ? arrowHintContainer.getWidth() : -arrowHintContainer.getWidth();
+        TranslateAnimation anim = new TranslateAnimation(fromXDelta, 0, 0, 0);
         anim.setDuration(500);
         arrowHintContainer.startAnimation(anim);
     }
@@ -485,6 +504,23 @@ public class ProSwipeButton extends RelativeLayout {
 
     public void setOnSwipeListener(@Nullable OnSwipeListener customSwipeListener) {
         this.swipeListener = customSwipeListener;
+    }
+
+    /**
+     * For RTL support
+     * This will make the button swipe from right-to-left
+     */
+    public void reverseDirection() {
+
+        isReverseDirection = true;
+
+        arrow1.setRotation(180);
+        arrow2.setRotation(180);
+
+        final RelativeLayout.LayoutParams layoutParams = (LayoutParams) arrowHintContainer.getLayoutParams();
+        layoutParams.addRule(ALIGN_PARENT_RIGHT, TRUE);
+        arrowHintContainer.setLayoutParams(layoutParams);
+
     }
 
 }
