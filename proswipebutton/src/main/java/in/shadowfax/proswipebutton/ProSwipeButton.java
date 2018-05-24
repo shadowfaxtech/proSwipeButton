@@ -217,26 +217,28 @@ public class ProSwipeButton extends RelativeLayout {
     }
 
     private void startFwdAnim() {
-        TranslateAnimation animation = new TranslateAnimation(0, getMeasuredWidth(), 0, 0);
-        animation.setInterpolator(new AccelerateDecelerateInterpolator());
-        animation.setDuration(1000);
-        animation.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
+        if (isEnabled()) {
+            TranslateAnimation animation = new TranslateAnimation(0, getMeasuredWidth(), 0, 0);
+            animation.setInterpolator(new AccelerateDecelerateInterpolator());
+            animation.setDuration(1000);
+            animation.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
 
-            }
+                }
 
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                startHintInitAnim();
-            }
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    startHintInitAnim();
+                }
 
-            @Override
-            public void onAnimationRepeat(Animation animation) {
+                @Override
+                public void onAnimationRepeat(Animation animation) {
 
-            }
-        });
-        arrowHintContainer.startAnimation(animation);
+                }
+            });
+            arrowHintContainer.startAnimation(animation);
+        }
     }
 
     /**
@@ -333,6 +335,19 @@ public class ProSwipeButton extends RelativeLayout {
         } else {
             // noinspection deprecation
             contentContainer.setBackgroundDrawable(gradientDrawable);
+        }
+    }
+
+    @Override
+    public void setEnabled(boolean enabled) {
+        super.setEnabled(enabled);
+        if (!enabled) {
+            gradientDrawable.setColor(ContextCompat.getColor(context, R.color.proswipebtn_disabled_grey));
+            updateBackground();
+            this.setAlpha(0.5f);
+        } else {
+            setBackgroundColor(getBackgroundColor());
+            this.setAlpha(1f);
         }
     }
 
