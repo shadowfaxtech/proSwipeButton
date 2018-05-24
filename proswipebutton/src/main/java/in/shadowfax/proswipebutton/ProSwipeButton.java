@@ -358,7 +358,7 @@ public class ProSwipeButton extends RelativeLayout {
         contentContainer.addView(progressBar);
     }
 
-    public void showResultIcon(boolean isSuccess) {
+    public void showResultIcon(boolean isSuccess, boolean shouldReset) {
         animateFadeHide(context, progressBar);
 
         final AppCompatImageView failureIcon = new AppCompatImageView(context);
@@ -375,7 +375,7 @@ public class ProSwipeButton extends RelativeLayout {
         contentContainer.addView(failureIcon);
         animateFadeShow(context, failureIcon);
 
-        if (!isSuccess) {
+        if (shouldReset) {
             // expand the btn again
             new Handler().postDelayed(new Runnable() {
                 @Override
@@ -388,6 +388,10 @@ public class ProSwipeButton extends RelativeLayout {
                 }
             }, 1000);
         }
+    }
+
+    public void showResultIcon(boolean isSuccess) {
+        showResultIcon(isSuccess, !isSuccess);
     }
 
     private void tintArrowHint() {

@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        proSwipeBtn.showResultIcon(true);
+                        proSwipeBtn.showResultIcon(true, false);
                     }
                 }, 2000);
             }
@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        proSwipeBtnError.showResultIcon(false);
+                        proSwipeBtnError.showResultIcon(false, true);
                     }
                 }, 2000);
             }
