@@ -42,7 +42,7 @@ import static in.shadowfax.proswipebutton.UiUtils.dpToPx;
  * Created by shadow-admin on 24/10/17.
  */
 
-public class ProSwipeButton extends RelativeLayout {
+public class ProSwipeButton extends RelativeLayout implements View.OnTouchListener {
 
     private Context context;
     private View view;
@@ -115,6 +115,7 @@ public class ProSwipeButton extends RelativeLayout {
     public void init() {
         LayoutInflater inflater = LayoutInflater.from(context);
         view = inflater.inflate(R.layout.view_proswipebtn, this, true);
+        setOnTouchListener(this);
     }
 
     @Override
@@ -136,56 +137,51 @@ public class ProSwipeButton extends RelativeLayout {
         gradientDrawable.setCornerRadius(btnRadius);
         setBackgroundColor(bgColorInt);
         updateBackground();
-        setupTouchListener();
     }
 
-    private void setupTouchListener() {
-        setOnTouchListener(new OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        return true;
-                    case MotionEvent.ACTION_MOVE:
-                        // Movement logic here
-                        if (event.getX() > arrowHintContainer.getWidth() / 2 &&
-                                event.getX() + arrowHintContainer.getWidth() / 2 < getWidth() &&
-                                (event.getX() < arrowHintContainer.getX() + arrowHintContainer.getWidth() || arrowHintContainer.getX() != 0)) {
-                            // snaps the hint to user touch, only if the touch is within hint width or if it has already been displaced
-                            arrowHintContainer.setX(event.getX() - arrowHintContainer.getWidth() / 2);
-                        }
-
-                        if (arrowHintContainer.getX() + arrowHintContainer.getWidth() > getWidth() &&
-                                arrowHintContainer.getX() + arrowHintContainer.getWidth() / 2 < getWidth()) {
-                            // allows the hint to go up to a max of btn container width
-                            arrowHintContainer.setX(getWidth() - arrowHintContainer.getWidth());
-                        }
-
-                        if (event.getX() < arrowHintContainer.getWidth() / 2 &&
-                                arrowHintContainer.getX() > 0) {
-                            // allows the hint to go up to a min of btn container starting
-                            arrowHintContainer.setX(0);
-                        }
-
-                        return true;
-                    case MotionEvent.ACTION_UP:
-                        //Release logic here
-                        if (arrowHintContainer.getX() + arrowHintContainer.getWidth() > getWidth() * swipeDistance) {
-                            // swipe completed, fly the hint away!
-                            performSuccessfulSwipe();
-                        } else if (arrowHintContainer.getX() <= 0) {
-                            // upon click without swipe
-                            startFwdAnim();
-                        } else {
-                            // swipe not completed, pull back the hint
-                            animateHintBack();
-                        }
-                        return true;
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                return true;
+            case MotionEvent.ACTION_MOVE:
+                // Movement logic here
+                if (event.getX() > arrowHintContainer.getWidth() / 2 &&
+                        event.getX() + arrowHintContainer.getWidth() / 2 < getWidth() &&
+                        (event.getX() < arrowHintContainer.getX() + arrowHintContainer.getWidth() || arrowHintContainer.getX() != 0)) {
+                    // snaps the hint to user touch, only if the touch is within hint width or if it has already been displaced
+                    arrowHintContainer.setX(event.getX() - arrowHintContainer.getWidth() / 2);
                 }
 
-                return false;
-            }
-        });
+                if (arrowHintContainer.getX() + arrowHintContainer.getWidth() > getWidth() &&
+                        arrowHintContainer.getX() + arrowHintContainer.getWidth() / 2 < getWidth()) {
+                    // allows the hint to go up to a max of btn container width
+                    arrowHintContainer.setX(getWidth() - arrowHintContainer.getWidth());
+                }
+
+                if (event.getX() < arrowHintContainer.getWidth() / 2 &&
+                        arrowHintContainer.getX() > 0) {
+                    // allows the hint to go up to a min of btn container starting
+                    arrowHintContainer.setX(0);
+                }
+
+                return true;
+            case MotionEvent.ACTION_UP:
+                //Release logic here
+                if (arrowHintContainer.getX() + arrowHintContainer.getWidth() > getWidth() * swipeDistance) {
+                    // swipe completed, fly the hint away!
+                    performSuccessfulSwipe();
+                } else if (arrowHintContainer.getX() <= 0) {
+                    // upon click without swipe
+                    startFwdAnim();
+                } else {
+                    // swipe not completed, pull back the hint
+                    animateHintBack();
+                }
+                return true;
+        }
+
+        return false;
     }
 
     private void performSuccessfulSwipe() {
@@ -297,7 +293,7 @@ public class ProSwipeButton extends RelativeLayout {
     }
 
     private void morphToRect() {
-        setupTouchListener();
+        setOnTouchListener(this);
         ObjectAnimator cornerAnimation =
                 ObjectAnimator.ofFloat(gradientDrawable, "cornerRadius", BTN_MORPHED_RADIUS, BTN_INIT_RADIUS);
 
