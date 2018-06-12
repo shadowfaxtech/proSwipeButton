@@ -44,6 +44,9 @@ import static in.shadowfax.proswipebutton.UiUtils.dpToPx;
 
 public class ProSwipeButton extends RelativeLayout implements View.OnTouchListener {
 
+    private static final int EXPANDED = 240;
+    private static final int LOADING = 604;
+
     private Context context;
     private View view;
     private GradientDrawable gradientDrawable;
@@ -53,6 +56,7 @@ public class ProSwipeButton extends RelativeLayout implements View.OnTouchListen
     private ImageView arrow2;
     private LinearLayout arrowHintContainer;
     private ProgressBar progressBar;
+    private int state = EXPANDED;
 
     //// TODO: 26/10/17 Add touch blocking
 
@@ -256,6 +260,7 @@ public class ProSwipeButton extends RelativeLayout implements View.OnTouchListen
     }
 
     public void morphToCircle() {
+        state = LOADING;
         animateFadeHide(context, arrowHintContainer);
         setOnTouchListener(null);
         ObjectAnimator cornerAnimation =
@@ -293,6 +298,7 @@ public class ProSwipeButton extends RelativeLayout implements View.OnTouchListen
     }
 
     private void morphToRect() {
+        state = EXPANDED;
         setOnTouchListener(this);
         ObjectAnimator cornerAnimation =
                 ObjectAnimator.ofFloat(gradientDrawable, "cornerRadius", BTN_MORPHED_RADIUS, BTN_INIT_RADIUS);
@@ -395,6 +401,14 @@ public class ProSwipeButton extends RelativeLayout implements View.OnTouchListen
         arrow2.setColorFilter(arrowColorInt, PorterDuff.Mode.MULTIPLY);
     }
 
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
+    }
+
     public interface OnSwipeListener {
         void onSwipeConfirm();
     }
@@ -481,6 +495,10 @@ public class ProSwipeButton extends RelativeLayout implements View.OnTouchListen
 
     public void setOnSwipeListener(@Nullable OnSwipeListener customSwipeListener) {
         this.swipeListener = customSwipeListener;
+    }
+
+    public OnSwipeListener getOnSwipeListener() {
+        return this.swipeListener;
     }
 
 }
