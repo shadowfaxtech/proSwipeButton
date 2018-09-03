@@ -6,6 +6,7 @@ import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.PorterDuff;
+import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Handler;
@@ -72,7 +73,6 @@ public class ProSwipeButton extends RelativeLayout {
     @Nullable
     private OnSwipeListener swipeListener = null;
     private float swipeDistance = DEFAULT_SWIPE_DISTANCE;
-
     public ProSwipeButton(Context context) {
         super(context);
         this.context = context;
@@ -110,6 +110,10 @@ public class ProSwipeButton extends RelativeLayout {
         } finally {
             a.recycle();
         }
+    }
+
+    public void setTypeFace(Typeface typeFace){
+        contentTv.setTypeface(typeFace);
     }
 
     public void init() {
