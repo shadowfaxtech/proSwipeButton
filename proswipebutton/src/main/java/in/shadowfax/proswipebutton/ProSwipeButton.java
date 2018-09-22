@@ -72,6 +72,7 @@ public class ProSwipeButton extends RelativeLayout {
     @Nullable
     private OnSwipeListener swipeListener = null;
     private float swipeDistance = DEFAULT_SWIPE_DISTANCE;
+    private boolean reverse;
 
     public ProSwipeButton(Context context) {
         super(context);
@@ -107,6 +108,7 @@ public class ProSwipeButton extends RelativeLayout {
             arrowColorInt = a.getColor(R.styleable.ProSwipeButton_arrow_color, ContextCompat.getColor(context, R.color.proswipebtn_translucent_white));
             btnRadius = a.getFloat(R.styleable.ProSwipeButton_btn_radius, BTN_INIT_RADIUS);
             textSize = a.getDimensionPixelSize(R.styleable.ProSwipeButton_text_size, (int) DEFAULT_TEXT_SIZE);
+            reverse = a.getBoolean(R.styleable.ProSwipeButton_reverse, false);
         } finally {
             a.recycle();
         }
@@ -126,6 +128,14 @@ public class ProSwipeButton extends RelativeLayout {
         contentTv = view.findViewById(R.id.tv_btnText);
         arrow1 = view.findViewById(R.id.iv_arrow1);
         arrow2 = view.findViewById(R.id.iv_arrow2);
+
+        if(reverse){
+            arrow1.setScaleX(-1);
+            arrow2.setScaleX(-1);
+            final RelativeLayout.LayoutParams layoutParams = (LayoutParams) arrowHintContainer.getLayoutParams();
+            layoutParams.addRule(ALIGN_PARENT_RIGHT, TRUE);
+            arrowHintContainer.setLayoutParams(layoutParams);
+        }
 
         tintArrowHint();
         contentTv.setText(btnText);
@@ -148,21 +158,17 @@ public class ProSwipeButton extends RelativeLayout {
                         return true;
                     case MotionEvent.ACTION_MOVE:
                         // Movement logic here
-                        if (event.getX() > arrowHintContainer.getWidth() / 2 &&
-                                event.getX() + arrowHintContainer.getWidth() / 2 < getWidth() &&
-                                (event.getX() < arrowHintContainer.getX() + arrowHintContainer.getWidth() || arrowHintContainer.getX() != 0)) {
+                        if (shouldMoveTheHint(event)) {
                             // snaps the hint to user touch, only if the touch is within hint width or if it has already been displaced
                             arrowHintContainer.setX(event.getX() - arrowHintContainer.getWidth() / 2);
                         }
 
-                        if (arrowHintContainer.getX() + arrowHintContainer.getWidth() > getWidth() &&
-                                arrowHintContainer.getX() + arrowHintContainer.getWidth() / 2 < getWidth()) {
+                        if (isReachingMaximum()) {
                             // allows the hint to go up to a max of btn container width
                             arrowHintContainer.setX(getWidth() - arrowHintContainer.getWidth());
                         }
 
-                        if (event.getX() < arrowHintContainer.getWidth() / 2 &&
-                                arrowHintContainer.getX() > 0) {
+                        if (isReachingMinimum(event)) {
                             // allows the hint to go up to a min of btn container starting
                             arrowHintContainer.setX(0);
                         }
@@ -170,10 +176,10 @@ public class ProSwipeButton extends RelativeLayout {
                         return true;
                     case MotionEvent.ACTION_UP:
                         //Release logic here
-                        if (arrowHintContainer.getX() + arrowHintContainer.getWidth() > getWidth() * swipeDistance) {
+                        if (isPerformSuccessfulySwipe()) {
                             // swipe completed, fly the hint away!
                             performSuccessfulSwipe();
-                        } else if (arrowHintContainer.getX() <= 0) {
+                        } else if (isClickWithoutSwipe()) {
                             // upon click without swipe
                             startFwdAnim();
                         } else {
@@ -186,6 +192,49 @@ public class ProSwipeButton extends RelativeLayout {
                 return false;
             }
         });
+    }
+
+    private boolean shouldMoveTheHint(MotionEvent event){
+        boolean insideMovingRange = event.getX() > arrowHintContainer.getWidth() / 2 &&
+                event.getX() + arrowHintContainer.getWidth() / 2 < getWidth();
+        if(reverse){
+            return insideMovingRange &&
+                    (event.getX() > arrowHintContainer.getX() || arrowHintContainer.getX() != getWidth() - arrowHintContainer.getWidth());
+        } else {
+            return insideMovingRange &&
+                    (event.getX() < arrowHintContainer.getX() + arrowHintContainer.getWidth() || arrowHintContainer.getX() != 0);
+        }
+    }
+
+    private boolean isReachingMaximum(){
+        return arrowHintContainer.getX() + arrowHintContainer.getWidth() > getWidth() &&
+                arrowHintContainer.getX() + arrowHintContainer.getWidth() / 2 < getWidth();
+    }
+
+    private boolean isReachingMinimum(MotionEvent event){
+        if(reverse) {
+            return arrowHintContainer.getX() < arrowHintContainer.getWidth() / 2 &&
+                    arrowHintContainer.getX() > 0;
+        } else {
+            return event.getX() < arrowHintContainer.getWidth() / 2 &&
+                    arrowHintContainer.getX() > 0;
+        }
+    }
+
+    private boolean isPerformSuccessfulySwipe(){
+        if(reverse){
+            return arrowHintContainer.getX() < getWidth() - (getWidth() * swipeDistance);
+        } else {
+            return arrowHintContainer.getX() + arrowHintContainer.getWidth() > getWidth() * swipeDistance;
+        }
+    }
+
+    private boolean isClickWithoutSwipe(){
+        if(reverse){
+            return arrowHintContainer.getX() >= getWidth() - arrowHintContainer.getWidth();
+        } else {
+            return arrowHintContainer.getX() <= 0;
+        }
     }
 
     private void performSuccessfulSwipe() {
@@ -202,7 +251,8 @@ public class ProSwipeButton extends RelativeLayout {
 
     private void animateHintBack() {
         final ValueAnimator positionAnimator =
-                ValueAnimator.ofFloat(arrowHintContainer.getX(), 0);
+                reverse ? ValueAnimator.ofFloat(arrowHintContainer.getX(), getWidth() - arrowHintContainer.getWidth())
+                        : ValueAnimator.ofFloat(arrowHintContainer.getX(), 0);
         positionAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
         positionAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
@@ -218,7 +268,9 @@ public class ProSwipeButton extends RelativeLayout {
 
     private void startFwdAnim() {
         if (isEnabled()) {
-            TranslateAnimation animation = new TranslateAnimation(0, getMeasuredWidth(), 0, 0);
+            TranslateAnimation animation =
+                    reverse ? new TranslateAnimation(0, 0 - getMeasuredWidth(), 0, 0)
+                            : new TranslateAnimation(0, getMeasuredWidth(), 0, 0);
             animation.setInterpolator(new AccelerateDecelerateInterpolator());
             animation.setDuration(1000);
             animation.setAnimationListener(new Animation.AnimationListener() {
@@ -245,7 +297,9 @@ public class ProSwipeButton extends RelativeLayout {
      * animate entry of hint from the left-most edge
      */
     private void startHintInitAnim() {
-        TranslateAnimation anim = new TranslateAnimation(-arrowHintContainer.getWidth(), 0, 0, 0);
+        TranslateAnimation anim =
+                reverse ? new TranslateAnimation(arrowHintContainer.getWidth(), 0, 0, 0)
+                        : new TranslateAnimation(-arrowHintContainer.getWidth(), 0, 0, 0);
         anim.setDuration(500);
         arrowHintContainer.startAnimation(anim);
     }
@@ -382,7 +436,7 @@ public class ProSwipeButton extends RelativeLayout {
                 public void run() {
                     animateFadeHide(context, failureIcon);
                     morphToRect();
-                    arrowHintContainer.setX(0);
+                    arrowHintContainer.setX(reverse ?getWidth() - arrowHintContainer.getWidth() :0);
                     animateFadeShow(context, arrowHintContainer);
                     animateFadeShow(context, contentTv);
                 }

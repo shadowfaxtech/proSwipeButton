@@ -7,5 +7,6 @@
         <attr name="arrow_color" format="color" />
         <attr name="btn_radius" format="float" />
         <attr name="text_size" format="dimension" />
+        <attr name="reverse" format="boolean" />
     </declare-styleable>
 </resources>
