@@ -296,7 +296,7 @@ public class ProSwipeButton extends RelativeLayout {
         showProgressBar();
     }
 
-    private void morphToRect() {
+    public void morphToRect() {
         setupTouchListener();
         ObjectAnimator cornerAnimation =
                 ObjectAnimator.ofFloat(gradientDrawable, "cornerRadius", BTN_MORPHED_RADIUS, BTN_INIT_RADIUS);
