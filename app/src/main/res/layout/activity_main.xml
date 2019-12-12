@@ -27,6 +27,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
+        app:btn_text="Place Order"
+        app:reverse="true"/>
+
+    <smart.ui.proswipebutton.ProSwipeButton
+        android:id="@+id/proswipebutton_main_reverse_error"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
         app:bg_color="@android:color/holo_blue_dark"
         app:btn_text="Place Order"
         app:reverse="true"/>

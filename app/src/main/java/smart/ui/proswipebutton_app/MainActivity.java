@@ -15,7 +15,8 @@ public class MainActivity extends AppCompatActivity {
 
         final ProSwipeButton proSwipeBtn = findViewById(R.id.proswipebutton_main);
         final ProSwipeButton proSwipeBtnError = findViewById(R.id.proswipebutton_main_error);
-        final ProSwipeButton reverseProSwipeBtnError = findViewById(R.id.proswipebutton_main_reverse);
+        final ProSwipeButton reverseProSwipeBtn = findViewById(R.id.proswipebutton_main_reverse);
+        final ProSwipeButton reverseProSwipeBtnError = findViewById(R.id.proswipebutton_main_reverse_error);
         proSwipeBtn.setSwipeDistance(0.5f);
 
         proSwipeBtn.setOnSwipeListener(new ProSwipeButton.OnSwipeListener() {
@@ -44,6 +45,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        reverseProSwipeBtn.setOnSwipeListener(new ProSwipeButton.OnSwipeListener() {
+            @Override
+            public void onSwipeConfirm() {
+                // user has swiped the btn. Perform your async operation now
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        reverseProSwipeBtn.showResultIcon(true, true);
+                    }
+                }, 2000);
+            }
+        });
+
         reverseProSwipeBtnError.setOnSwipeListener(new ProSwipeButton.OnSwipeListener() {
             @Override
             public void onSwipeConfirm() {
@@ -51,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        reverseProSwipeBtnError.showResultIcon(true, true);
+                        reverseProSwipeBtnError.showResultIcon(false, true);
                     }
                 }, 2000);
             }
