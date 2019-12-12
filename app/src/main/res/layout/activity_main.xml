@@ -5,16 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="in.shadowfax.proswipebutton_app.MainActivity">
+    tools:context="smart.ui.proswipebutton_app.MainActivity">
 
-    <in.shadowfax.proswipebutton.ProSwipeButton
+    <smart.ui.proswipebutton.ProSwipeButton
         android:id="@+id/proswipebutton_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         app:btn_text="Place Order" />
 
-    <in.shadowfax.proswipebutton.ProSwipeButton
+    <smart.ui.proswipebutton.ProSwipeButton
         android:id="@+id/proswipebutton_main_error"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -22,7 +22,7 @@
         app:bg_color="@android:color/holo_blue_dark"
         app:btn_text="Place Order" />
 
-    <in.shadowfax.proswipebutton.ProSwipeButton
+    <smart.ui.proswipebutton.ProSwipeButton
         android:id="@+id/proswipebutton_main_reverse"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

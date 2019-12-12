@@ -1,4 +1,4 @@
-package in.shadowfax.proswipebutton;
+package smart.ui.proswipebutton_app;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("in.shadowfax.proswipebutton.test", appContext.getPackageName());
+        assertEquals("in.shadowfax.proswipebutton", appContext.getPackageName());
     }
 }

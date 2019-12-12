@@ -1,10 +1,10 @@
-package in.shadowfax.proswipebutton_app;
+package smart.ui.proswipebutton_app;
 
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
-import in.shadowfax.proswipebutton.ProSwipeButton;
+import smart.ui.proswipebutton.ProSwipeButton;
 
 public class MainActivity extends AppCompatActivity {
 

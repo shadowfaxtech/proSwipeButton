@@ -1,4 +1,4 @@
-package in.shadowfax.proswipebutton_app;
+package smart.ui.proswipebutton_app;
 
 import org.junit.Test;
 

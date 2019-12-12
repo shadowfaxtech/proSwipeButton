@@ -1,4 +1,4 @@
-package in.shadowfax.proswipebutton;
+package smart.ui.proswipebutton;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
@@ -29,14 +29,14 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import static in.shadowfax.proswipebutton.Constants.BTN_INIT_RADIUS;
-import static in.shadowfax.proswipebutton.Constants.BTN_MORPHED_RADIUS;
-import static in.shadowfax.proswipebutton.Constants.DEFAULT_SWIPE_DISTANCE;
-import static in.shadowfax.proswipebutton.Constants.DEFAULT_TEXT_SIZE;
-import static in.shadowfax.proswipebutton.Constants.MORPH_ANIM_DURATION;
-import static in.shadowfax.proswipebutton.UiUtils.animateFadeHide;
-import static in.shadowfax.proswipebutton.UiUtils.animateFadeShow;
-import static in.shadowfax.proswipebutton.UiUtils.dpToPx;
+import static smart.ui.proswipebutton.Constants.BTN_INIT_RADIUS;
+import static smart.ui.proswipebutton.Constants.BTN_MORPHED_RADIUS;
+import static smart.ui.proswipebutton.Constants.DEFAULT_SWIPE_DISTANCE;
+import static smart.ui.proswipebutton.Constants.DEFAULT_TEXT_SIZE;
+import static smart.ui.proswipebutton.Constants.MORPH_ANIM_DURATION;
+import static smart.ui.proswipebutton.UiUtils.animateFadeHide;
+import static smart.ui.proswipebutton.UiUtils.animateFadeShow;
+import static smart.ui.proswipebutton.UiUtils.dpToPx;
 
 /**
  * Created by shadow-admin on 24/10/17.

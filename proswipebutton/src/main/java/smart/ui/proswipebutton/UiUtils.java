@@ -1,4 +1,4 @@
-package in.shadowfax.proswipebutton;
+package smart.ui.proswipebutton;
 
 import android.content.Context;
 import android.content.res.Resources;

@@ -1,6 +1,6 @@
-package in.shadowfax.proswipebutton;
+package smart.ui.proswipebutton;
 
-import static in.shadowfax.proswipebutton.UiUtils.dpToPx;
+import static smart.ui.proswipebutton.UiUtils.dpToPx;
 
 /**
  * Created by shadow-admin on 22/2/18.
