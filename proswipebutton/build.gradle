@@ -27,11 +27,15 @@ ext {
 android {
     compileSdkVersion 26
 
+    def majorVersion = 1
+    def minorVersion = 3
+    def releaseVersion = 0
+
     defaultConfig {
         minSdkVersion 15
         targetSdkVersion 26
-        versionCode 1
-        versionName "1.0.0"
+        versionCode ((majorVersion * 1000000) + (minorVersion * 1000) + releaseVersion)
+        versionName majorVersion.toString() +"."+ minorVersion.toString() +"."+ releaseVersion.toString()
         vectorDrawables.useSupportLibrary = true
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
