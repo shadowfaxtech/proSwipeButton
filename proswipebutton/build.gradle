@@ -1,8 +1,8 @@
 apply plugin: 'com.android.library'
 
 ext {
-    bintrayRepo = 'proswipebutton'
-    bintrayName = 'proswipebutton'
+    bintrayRepo = 'UI'
+    bintrayName = 'proSwipeButton'
 
     publishedGroupId = 'smart.ui'
     libraryName = 'proswipebutton'
