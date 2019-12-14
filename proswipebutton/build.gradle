@@ -13,7 +13,7 @@ ext {
     siteUrl = 'https://github.com/jefryjacky/proSwipeButton'
     gitUrl = 'https://github.com/jefryjacky/proSwipeButton.git'
 
-    libraryVersion = '1.3.0'
+    libraryVersion = '1.3.1'
 
     developerId = 'developerId'
     developerName = 'Jefry Jacky'
@@ -29,7 +29,7 @@ android {
 
     def majorVersion = 1
     def minorVersion = 3
-    def releaseVersion = 0
+    def releaseVersion = 1
 
     defaultConfig {
         minSdkVersion 15
