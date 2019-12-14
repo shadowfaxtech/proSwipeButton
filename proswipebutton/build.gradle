@@ -4,20 +4,20 @@ ext {
     bintrayRepo = 'proswipebutton'
     bintrayName = 'proswipebutton'
 
-    publishedGroupId = 'in.shadowfax'
+    publishedGroupId = 'smart.ui'
     libraryName = 'proswipebutton'
     artifact = 'proswipebutton'
 
     libraryDescription = 'A swipe button with progress indicator for Android'
 
-    siteUrl = 'https://github.com/shadowfaxtech/proSwipeButton'
-    gitUrl = 'https://github.com/shadowfaxtech/proSwipeButton.git'
+    siteUrl = 'https://github.com/jefryjacky/proSwipeButton'
+    gitUrl = 'https://github.com/jefryjacky/proSwipeButton.git'
 
-    libraryVersion = '1.2'
+    libraryVersion = '1.3.0'
 
     developerId = 'developerId'
-    developerName = 'Ishaan Garg'
-    developerEmail = 'ishaan.garg@shadowfax.in'
+    developerName = 'Jefry Jacky'
+    developerEmail = 'jefryjacky@gmail.com'
 
     licenseName = 'The MIT License (MIT)'
     licenseUrl = 'https://opensource.org/licenses/MIT'
