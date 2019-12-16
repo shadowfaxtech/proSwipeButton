@@ -55,7 +55,7 @@ proSwipeBtn.showResultIcon(false); //if task fails
 You can customize the button via XML or programatically.  
   
 ```XML  
-<in.shadowfax.proswipebutton.ProSwipeButton  
+<smart.ui.proswipebutton.ProSwipeButton
         android:id="@+id/proswipebutton_main_error"  
         android:layout_width="match_parent"  
         android:layout_height="wrap_content"  
