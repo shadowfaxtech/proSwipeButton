@@ -8,7 +8,7 @@ A swipe button for Android with a circular progress bar for async operations
 ```  
 dependencies {  
     ...  
-    compile 'smart.ui:proswipebutton:1.3.2'  
+    implementation 'smart.ui:proswipebutton:1.3.2'  
 }  
 ```  
   
