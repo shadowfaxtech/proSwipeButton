@@ -1,4 +1,4 @@
-DEPRECATED
+# DEPRECATED
 Pls use an alternative like https://github.com/cortinico/slidetoact
 
 # ProSwipeButton
