@@ -1,3 +1,6 @@
+DEPRECATED
+Pls use an alternative like https://github.com/cortinico/slidetoact
+
 # ProSwipeButton
 A swipe button for Android with a circular progress bar for async operations
 
